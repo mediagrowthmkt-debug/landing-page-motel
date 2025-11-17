@@ -6,10 +6,29 @@
     <meta name="description" content="Motel Xenon - Experiências únicas em Criciúma. Suítes luxuosas, hidromassagem, privacidade total. Aberto 24h na BR-101.">
     <meta name="keywords" content="motel criciúma, motel br-101, motel xenon, suítes com hidromassagem, motel 24 horas">
     <title>Motel Xenon - Momentos Inesquecíveis em Criciúma | Suítes de Luxo 24h</title>
+    
+    <!-- DNS Prefetch e Preconnect para otimização -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Preload de fontes críticas -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Critical CSS Inline -->
+    <style>
+        /* Critical CSS para renderização inicial */
+        body{margin:0;font-family:'Montserrat',sans-serif;background:#0a0a0a;color:#b7b7b7}
+        .header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(0,0,0,.9)}
+        .hero{height:100vh;background:#000;position:relative}
+        .hero-content{position:relative;z-index:2;text-align:center;padding-top:30vh}
+        .neon-text{color:#ff5577;text-shadow:0 0 3px rgba(255,85,119,.8)}
+    </style>
 </head>
 <body>
     
@@ -17,7 +36,7 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <img src="logo-fundo-branco.png" alt="Motel Xenon">
+                <img src="logo-fundo-branco.png" alt="Motel Xenon" width="200" height="60">
                 <span class="neon-line"></span>
             </div>
             <nav class="nav">
@@ -48,7 +67,7 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-logo">
-                    <img src="logo-fundo-branco.png" alt="Motel Xenon">
+                    <img src="logo-fundo-branco.png" alt="Motel Xenon" width="500" height="150">
                 </div>
                 <p class="hero-subtitle animate-in delay-1">
                     Suítes de luxo com total privacidade, à beira da BR-101
@@ -104,7 +123,7 @@
                 </div>
                 <div class="intro-image">
                     <div class="image-frame neon-border">
-                        <img src="fotos e videos instagram/suite-cama-casal-luz-quente.jpg" alt="Suíte Luxuosa Motel Xenon">
+                        <img src="fotos e videos instagram/suite-cama-casal-luz-quente.jpg" alt="Suíte Luxuosa Motel Xenon" loading="lazy" width="600" height="400">
                     </div>
                 </div>
             </div>
@@ -127,7 +146,7 @@
                 <!-- Suíte Premium -->
                 <div class="suite-card" data-category="premium">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-hidro-vermelha.jpg" alt="Suíte Premium com Hidromassagem">
+                        <img src="fotos e videos instagram/suite-hidro-vermelha.jpg" alt="Suíte Premium com Hidromassagem" loading="lazy" width="400" height="300">
                         <div class="suite-badge">MAIS PROCURADA</div>
                         <div class="suite-overlay">
                             <div class="suite-features">
@@ -153,7 +172,7 @@
                 <!-- Suíte Luxo -->
                 <div class="suite-card" data-category="luxo">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-hidro-grande.jpg" alt="Suíte Luxo com Hidromassagem">
+                        <img src="fotos e videos instagram/suite-hidro-grande.jpg" alt="Suíte Luxo com Hidromassagem" loading="lazy" width="400" height="300">
                         <div class="suite-overlay">
                             <div class="suite-features">
                                 <span>Banheira 480L</span>
@@ -178,7 +197,7 @@
                 <!-- Suíte Confort -->
                 <div class="suite-card" data-category="confort">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-cama-madeira.jpg" alt="Suíte Confort">
+                        <img src="fotos e videos instagram/suite-cama-madeira.jpg" alt="Suíte Confort" loading="lazy" width="400" height="300">
                         <div class="suite-overlay">
                             <div class="suite-features">
                                 <span>Banheira 340L</span>
@@ -215,7 +234,7 @@
         <div class="video-marquee-wrapper">
             <div class="video-marquee-track">
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-grande.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-grande.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -255,7 +274,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-luz-azul.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-luz-azul.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite2.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -265,7 +284,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-cama-madeira.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-cama-madeira.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/vidoe%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -276,7 +295,7 @@
 
                 <!-- Duplicação para efeito infinito -->
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-grande.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-grande.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -286,7 +305,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-cama-luz-ambiente.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-cama-luz-ambiente.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/decoracao-coracoes.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -296,7 +315,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-vermelha.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-vermelha.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/esourando%20champagne%20na%20hdro.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -306,7 +325,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/tacas-espumante.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/tacas-espumante.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostra%20tacas%20de%20vinho%20em%20cima%20de%20hidromassagem.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -323,7 +342,7 @@
         <div class="video-marquee-wrapper">
             <div class="video-marquee-track">
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-decoracao.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-decoracao.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/decoracao-coracoes.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -333,7 +352,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/espumante-gelo.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/espumante-gelo.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/esourando%20champagne%20na%20hdro.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -343,7 +362,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/vinho-tinto.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/vinho-tinto.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostra%20tacas%20de%20vinho%20em%20cima%20de%20hidromassagem.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -353,7 +372,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-mesa.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-mesa.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -363,7 +382,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-cama-luz-teto2.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-cama-luz-teto2.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite2.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -373,7 +392,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-mulher.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-mulher.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/vidoe%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -384,7 +403,7 @@
 
                 <!-- Duplicação para efeito infinito -->
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-decoracao.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-decoracao.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/decoracao-coracoes.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -394,7 +413,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/espumante-gelo.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/espumante-gelo.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/esourando%20champagne%20na%20hdro.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -404,7 +423,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/vinho-tinto.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/vinho-tinto.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostra%20tacas%20de%20vinho%20em%20cima%20de%20hidromassagem.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -414,7 +433,7 @@
                 </div>
                 
                 <div class="video-card">
-                    <video autoplay muted loop playsinline preload="auto" poster="fotos%20e%20videos%20instagram/suite-hidro-mesa.jpg">
+                    <video autoplay muted loop playsinline preload="none" poster="fotos%20e%20videos%20instagram/suite-hidro-mesa.jpg">
                         <source src="fotos%20e%20videos%20instagram/videos/marquee%20effect/video%20mostrando%20ambiente%20da%20suite.mp4" type="video/mp4">
                         Seu navegador não suporta vídeos.
                     </video>
@@ -433,7 +452,7 @@
             <div class="experience-grid">
                 <div class="experience-item">
                     <div class="experience-image neon-border">
-                        <img src="fotos e videos instagram/suite-hidro-petalas.jpg" alt="Hidromassagem Romântica">
+                        <img src="fotos e videos instagram/suite-hidro-petalas.jpg" alt="Hidromassagem Romântica" loading="lazy" width="600" height="400">
                     </div>
                     <div class="experience-content">
                         <h3>Relaxamento Total</h3>
@@ -443,7 +462,7 @@
 
                 <div class="experience-item reverse">
                     <div class="experience-image neon-border">
-                        <img src="fotos e videos instagram/cafe-da-manha.jpg" alt="Café da Manhã Premium">
+                        <img src="fotos e videos instagram/cafe-da-manha.jpg" alt="Café da Manhã Premium" loading="lazy" width="600" height="400">
                     </div>
                     <div class="experience-content">
                         <h3>Gastronomia 24 Horas</h3>
@@ -453,7 +472,7 @@
 
                 <div class="experience-item">
                     <div class="experience-image neon-border">
-                        <img src="fotos e videos instagram/suite-cama-luz-azul.jpg" alt="Iluminação Ambiente">
+                        <img src="fotos e videos instagram/suite-cama-luz-azul.jpg" alt="Iluminação Ambiente" loading="lazy" width="600" height="400">
                     </div>
                     <div class="experience-content">
                         <h3>Atmosfera Única</h3>
@@ -625,7 +644,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="logo-fundo-branco.png" alt="Motel Xenon">
+                    <img src="logo-fundo-branco.png" alt="Motel Xenon" loading="lazy" width="200" height="60">
                     <p>Momentos Inesquecíveis</p>
                 </div>
                 <div class="footer-links">
@@ -644,6 +663,6 @@
         </div>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/script.js" defer></script>
 </body>
 </html>

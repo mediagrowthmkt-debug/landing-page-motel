@@ -218,37 +218,61 @@ if ('IntersectionObserver' in window) {
 }
 
 // ============================================
-// VÍDEOS MARQUEE - FORÇAR PLAY
+// VÍDEOS MARQUEE - CARREGAMENTO LAZY E OTIMIZADO
 // ============================================
 
 function initVideos() {
     const videos = document.querySelectorAll('.video-card video');
     
+    // Observer para carregar vídeos quando entrarem no viewport
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const video = entry.target;
+                
+                // Se o vídeo ainda não foi carregado
+                if (video.readyState === 0) {
+                    video.load();
+                }
+                
+                // Tentar reproduzir
+                const playPromise = video.play();
+                
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        console.log('Vídeo reproduzindo:', video.src);
+                    }).catch(error => {
+                        console.log('Erro ao reproduzir vídeo:', error);
+                    });
+                }
+                
+                // Parar de observar após carregar
+                videoObserver.unobserve(video);
+            }
+        });
+    }, {
+        rootMargin: '50px' // Carregar um pouco antes de aparecer
+    });
+    
+    // Observar todos os vídeos
     videos.forEach(video => {
-        // Tentar carregar e reproduzir o vídeo
-        video.load();
-        
-        const playPromise = video.play();
-        
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                console.log('Vídeo reproduzindo:', video.src);
-            }).catch(error => {
-                console.log('Erro ao reproduzir vídeo:', error);
-                // Se falhar, tentar novamente após interação do usuário
-                document.addEventListener('click', function() {
-                    video.play();
-                }, { once: true });
-            });
-        }
+        videoObserver.observe(video);
     });
 }
 
 // Iniciar vídeos quando a página carregar
 window.addEventListener('load', initVideos);
 
-// Tentar novamente após 1 segundo (fallback)
-setTimeout(initVideos, 1000);
+// Fallback para navegadores mais antigos
+if (!('IntersectionObserver' in window)) {
+    setTimeout(() => {
+        const videos = document.querySelectorAll('.video-card video');
+        videos.forEach(video => {
+            video.load();
+            video.play().catch(() => {});
+        });
+    }, 1000);
+}
 
 // ============================================
 // UTILITÁRIOS
