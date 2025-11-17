@@ -15,14 +15,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function initHeader() {
     const header = document.querySelector('.header');
+    let lastScroll = 0;
+    let ticking = false;
     
     window.addEventListener('scroll', function() {
-        if (window.scrollY > 100) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        lastScroll = window.scrollY;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                if (lastScroll > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
+    }, { passive: true });
 }
 
 // ============================================
@@ -54,7 +64,7 @@ function initHeroSlider() {
 function initScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
     
     const observer = new IntersectionObserver(function(entries) {
@@ -80,6 +90,7 @@ function initScrollAnimations() {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
         element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        element.style.willChange = 'opacity, transform';
         observer.observe(element);
     });
 }
@@ -93,38 +104,61 @@ function initSmoothScroll() {
     
     links.forEach(link => {
         link.addEventListener('click', function(e) {
-            e.preventDefault();
-            
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
             
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
+                e.preventDefault();
+                
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
                 
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
+                // Usar scrollIntoView para melhor compatibilidade mobile
+                if ('scrollBehavior' in document.documentElement.style) {
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Fallback para navegadores antigos
+                    window.scrollTo(0, targetPosition);
+                }
             }
-        });
+        }, { passive: false });
     });
 }
 
 // ============================================
-// PARALLAX EFFECT (OPCIONAL)
+// PARALLAX EFFECT (OTIMIZADO PARA MOBILE)
 // ============================================
 
-window.addEventListener('scroll', function() {
-    const scrolled = window.pageYOffset;
+function initParallax() {
     const heroSlider = document.querySelector('.hero-slider');
+    let ticking = false;
     
-    if (heroSlider && scrolled <= window.innerHeight) {
-        heroSlider.style.transform = `translateY(${scrolled * 0.5}px)`;
-    }
-});
+    // Desabilitar parallax em dispositivos móveis para melhor performance
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    
+    if (isMobile) return;
+    
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            window.requestAnimationFrame(function() {
+                const scrolled = window.pageYOffset;
+                if (heroSlider && scrolled <= window.innerHeight) {
+                    heroSlider.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    }, { passive: true });
+}
+
+// Chamar função de parallax
+initParallax();
 
 // ============================================
 // CONTADOR DE STATS (OPCIONAL)
@@ -280,8 +314,13 @@ if (!('IntersectionObserver' in window)) {
 
 // Prevenir comportamento padrão de links vazios
 document.querySelectorAll('a[href="#"]').forEach(link => {
-    link.addEventListener('click', e => e.preventDefault());
+    link.addEventListener('click', e => e.preventDefault(), { passive: false });
 });
+
+// Fix para scroll no iOS
+document.addEventListener('touchmove', function(e) {
+    // Permitir scroll normal
+}, { passive: true });
 
 // Console log para debug
 console.log('🎉 Motel Xenon - Landing Page carregada com sucesso!');
