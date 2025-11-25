@@ -40,42 +40,6 @@ function optimizePerformance() {
     
     // Prevenir overscroll bounce
     document.body.style.overscrollBehavior = 'none';
-    
-    // PROTEÇÃO CRÍTICA: Prevenir scroll jump automático
-    let scrollPosition = 0;
-    let isUserScrolling = false;
-    let scrollTimeout;
-    
-    window.addEventListener('scroll', () => {
-        isUserScrolling = true;
-        const currentScroll = window.pageYOffset;
-        
-        // Detectar scroll jump suspeito
-        const scrollDifference = Math.abs(currentScroll - scrollPosition);
-        
-        // Se houve um jump grande (>300px) e inesperado para cima
-        if (scrollDifference > 300 && currentScroll < scrollPosition && !isUserScrolling) {
-            console.warn('Scroll jump detectado e prevenido');
-            window.scrollTo(0, scrollPosition);
-            return;
-        }
-        
-        scrollPosition = currentScroll;
-        
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            isUserScrolling = false;
-        }, 100);
-    }, { passive: true });
-    
-    // Marcar que usuário está fazendo scroll
-    window.addEventListener('wheel', () => {
-        isUserScrolling = true;
-    }, { passive: true });
-    
-    window.addEventListener('touchstart', () => {
-        isUserScrolling = true;
-    }, { passive: true });
 }
 
 // ============================================
@@ -217,29 +181,28 @@ function initSmoothScroll() {
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
+            
+            // Ignorar links vazios ou apenas "#"
+            if (!targetId || targetId === '#') {
+                e.preventDefault();
+                return false;
+            }
             
             const targetSection = document.querySelector(targetId);
             
             if (targetSection) {
                 e.preventDefault();
                 
-                const headerHeight = document.querySelector('.header').offsetHeight;
+                const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
                 const targetPosition = targetSection.offsetTop - headerHeight;
                 
-                // Prevenir conflitos durante scroll
-                document.body.style.pointerEvents = 'none';
-                
-                // Usar scrollTo com behavior smooth
+                // Scroll suave
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
                 
-                // Re-ativar pointer events após scroll
-                setTimeout(() => {
-                    document.body.style.pointerEvents = '';
-                }, 1000);
+                return false;
             }
         }, { passive: false });
     });
@@ -312,14 +275,7 @@ function initMobileMenu() {
     }
 }
 
-// Chamar função no resize
-let resizeTimer;
-window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-        location.reload();
-    }, 250);
-});
+// REMOVIDO: location.reload() no resize estava causando bugs de reload constante
 
 // ============================================
 // LAZY LOADING DE IMAGENS (PERFORMANCE)
@@ -519,10 +475,10 @@ function optimizeMarquees() {
                             }
                         });
                     } else {
-                        // Fora da viewport - pausar animação para economizar recursos
+                        // Fora da viewport - pausar animação
                         track.style.animationPlayState = 'paused';
                         
-                        // Pausar todos os vídeos
+                        // Pausar vídeos
                         const videos = track.querySelectorAll('video');
                         videos.forEach(video => {
                             if (!video.paused) {
@@ -537,97 +493,20 @@ function optimizeMarquees() {
             });
             
             observer.observe(track);
-            
-            // Prevenir scroll jump ao passar o mouse
-            let isHovering = false;
-            
-            track.addEventListener('mouseenter', () => {
-                isHovering = true;
-            }, { passive: true });
-            
-            track.addEventListener('mouseleave', () => {
-                isHovering = false;
-            }, { passive: true });
-            
-            // Pausar marquee quando tab não está visível
-            document.addEventListener('visibilitychange', () => {
-                if (document.hidden) {
-                    track.style.animationPlayState = 'paused';
-                } else {
-                    if (!isHovering) {
-                        track.style.animationPlayState = 'running';
-                    }
-                }
-            }, { passive: true });
         });
     });
     
-    // Debounce para scroll events - PROTEÇÃO CONTRA SCROLL JUMP
+    // Simples debounce para scroll
     let scrollTimeout;
-    let isScrolling = false;
-    let lastScrollY = window.pageYOffset;
-    let scrollLocked = false;
-    let userInitiatedScroll = false;
-    
-    // Detectar scroll iniciado pelo usuário
-    ['wheel', 'touchstart', 'keydown'].forEach(eventType => {
-        window.addEventListener(eventType, () => {
-            userInitiatedScroll = true;
-        }, { passive: true });
-    });
     
     window.addEventListener('scroll', () => {
-        // Prevenir scroll jump para o topo
-        const currentScrollY = window.pageYOffset;
-        
-        // Se detectar jump grande e repentino para cima sem interação do usuário
-        if (currentScrollY === 0 && lastScrollY > 200 && !userInitiatedScroll) {
-            // Possível scroll jump indesejado - restaurar posição
-            console.warn('Scroll jump automático detectado e bloqueado');
-            requestAnimationFrame(() => {
-                window.scrollTo(0, lastScrollY);
-            });
-            return;
-        }
-        
-        // Se scroll foi muito rápido para cima (>500px instantâneo) e não foi usuário
-        const scrollDiff = lastScrollY - currentScrollY;
-        if (scrollDiff > 500 && !userInitiatedScroll) {
-            console.warn('Scroll jump grande detectado:', scrollDiff, 'px');
-            requestAnimationFrame(() => {
-                window.scrollTo(0, lastScrollY);
-            });
-            return;
-        }
-        
-        lastScrollY = currentScrollY;
-        isScrolling = true;
-        
-        // Limpar timeout anterior
-        clearTimeout(scrollTimeout);
-        
-        // Adicionar classe durante scroll
         document.body.classList.add('is-scrolling');
         
-        // Após 150ms sem scroll, remover classe
+        clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            isScrolling = false;
-            userInitiatedScroll = false; // Reset flag
             document.body.classList.remove('is-scrolling');
         }, 150);
     }, { passive: true });
-    
-    // Prevenir scroll automático indesejado
-    let scrollEndTimeout;
-    if ('onscrollend' in window) {
-        window.addEventListener('scrollend', () => {
-            clearTimeout(scrollEndTimeout);
-            scrollEndTimeout = setTimeout(() => {
-                scrollLocked = false;
-                userInitiatedScroll = false;
-            }, 500);
-        }, { passive: true });
-    }
 }
 
 // Console log para debug
