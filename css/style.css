@@ -51,6 +51,9 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Prevenir scroll jump */
+    overflow-x: hidden;
+    overflow-y: scroll; /* Force scrollbar sempre visível */
 }
 
 body {
@@ -64,6 +67,9 @@ body {
     -moz-osx-font-smoothing: grayscale;
     position: relative;
     min-height: 100vh;
+    /* Prevenir janky scroll */
+    overscroll-behavior: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .container {
@@ -71,6 +77,8 @@ body {
     margin: 0 auto;
     padding: 0 20px;
     width: 100%;
+    /* Prevenir overflow */
+    overflow: hidden;
 }
 
 img, video {
@@ -90,6 +98,13 @@ a {
     text-decoration: none;
     color: inherit;
     transition: var(--transition-fast);
+}
+
+/* Seções - Isolamento global */
+section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
 }
 
 /* ============================================
@@ -518,6 +533,10 @@ a {
     background: var(--color-bg-dark);
     overflow: hidden;
     position: relative;
+    /* Isolamento e contenção para performance */
+    isolation: isolate;
+    contain: layout style paint;
+    will-change: auto; /* Não usar will-change na section */
 }
 
 .xenon-videos-marquee .section-title {
@@ -525,12 +544,23 @@ a {
     margin-bottom: 60px;
     position: relative;
     z-index: 10;
+    /* Contenção de título */
+    contain: layout style paint;
 }
 
 .videos-marquee-wrapper {
     width: 100%;
     overflow: hidden;
     position: relative;
+    /* Performance crítica */
+    contain: strict;
+    isolation: isolate;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
 }
 
 .videos-marquee-wrapper::before,
@@ -542,6 +572,9 @@ a {
     height: 100%;
     z-index: 2;
     pointer-events: none;
+    /* GPU acceleration para gradientes */
+    transform: translateZ(1px);
+    backface-visibility: hidden;
 }
 
 .videos-marquee-wrapper::before {
@@ -559,10 +592,19 @@ a {
     flex-direction: row;
     gap: 30px;
     animation: marquee-horizontal 25s linear infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    /* Otimizações críticas de performance */
     will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    /* Force hardware acceleration */
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
 }
 
 .videos-marquee-track:hover {
@@ -571,10 +613,12 @@ a {
 
 @keyframes marquee-horizontal {
     0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
 }
 
@@ -587,11 +631,20 @@ a {
     overflow: hidden;
     background: #000;
     box-shadow: 0 10px 40px rgba(217, 21, 24, 0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Isolamento e contenção */
+    isolation: isolate;
+    contain: layout style paint;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .video-marquee-item:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0);
+    -webkit-transform: scale(1.05) translateZ(0);
     box-shadow: 0 15px 50px rgba(217, 21, 24, 0.5);
 }
 
@@ -601,10 +654,14 @@ a {
     object-fit: contain;
     display: block;
     background: #000;
-    will-change: transform;
+    /* Performance de vídeo otimizada */
+    will-change: auto; /* Deixar o browser decidir */
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    transform: translateZ(0);
+    /* Contenção de vídeo */
+    contain: strict;
 }
 
 .video-marquee-overlay {
@@ -1051,6 +1108,10 @@ a {
     background: var(--color-bg-dark);
     overflow: hidden;
     position: relative;
+    /* Isolamento de layer para performance */
+    isolation: isolate;
+    contain: layout style paint;
+    will-change: auto;
 }
 
 .video-marquee-reverse {
@@ -1060,23 +1121,27 @@ a {
 .video-marquee-reverse .video-marquee-track {
     animation: marquee-reverse 40s linear infinite;
     -webkit-animation: marquee-reverse 40s linear infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
 }
 
 @keyframes marquee-reverse {
     0% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
     100% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
 }
 
 @-webkit-keyframes marquee-reverse {
     0% {
-        -webkit-transform: translateX(-50%);
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
     100% {
-        -webkit-transform: translateX(0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
 }
 
@@ -1089,6 +1154,9 @@ a {
     height: 100%;
     z-index: 2;
     pointer-events: none;
+    /* GPU para gradientes */
+    transform: translateZ(1px);
+    backface-visibility: hidden;
 }
 
 .video-marquee::before {
@@ -1105,17 +1173,34 @@ a {
     width: 100%;
     overflow: hidden;
     -webkit-overflow-scrolling: touch;
+    /* Contenção e isolamento */
+    contain: strict;
+    isolation: isolate;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
 }
 
 .video-marquee-track {
     display: flex;
     gap: 30px;
     animation: marquee 40s linear infinite;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
     width: fit-content;
+    /* Otimizações de performance */
     will-change: transform;
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    transform: translateZ(0);
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;
 }
 
 .video-marquee-track:hover {
@@ -1124,10 +1209,12 @@ a {
 
 @keyframes marquee {
     0% {
-        transform: translateX(0);
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
     }
     100% {
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
+        -webkit-transform: translate3d(-50%, 0, 0);
     }
 }
 
@@ -1149,14 +1236,20 @@ a {
     overflow: hidden;
     background: #1a1a1a;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
-    will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Otimizações de performance */
+    will-change: auto;
+    isolation: isolate;
+    contain: layout style paint;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
 .video-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.05) translateZ(0);
+    -webkit-transform: scale(1.05) translateZ(0);
     box-shadow: 0 15px 40px rgba(217, 21, 24, 0.3);
 }
 
@@ -1166,11 +1259,14 @@ a {
     object-fit: cover;
     display: block;
     background: #000;
+    /* Performance de vídeo */
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
-    will-change: transform;
+    will-change: auto;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    contain: strict;
+}
 }
 
 .video-overlay {
@@ -1988,12 +2084,20 @@ a {
     .videos-marquee-track {
         gap: 20px;
         animation: marquee-horizontal 20s linear infinite;
+        /* Otimizações mobile críticas */
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        will-change: transform;
     }
 
     .video-marquee-track {
         gap: 20px;
         animation: marquee 30s linear infinite;
         -webkit-animation: marquee 30s linear infinite;
+        /* Otimizações mobile críticas */
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+        will-change: transform;
     }
 
     .video-marquee-reverse .video-marquee-track {
@@ -2010,10 +2114,13 @@ a {
     section {
         transform: translate3d(0, 0, 0);
         -webkit-transform: translate3d(0, 0, 0);
+        /* Contenção para evitar conflitos */
+        contain: layout style;
     }
     
     /* Desabilitar hover effects no mobile */
-    .video-card:hover {
+    .video-card:hover,
+    .video-marquee-item:hover {
         transform: none;
     }
     
@@ -2025,6 +2132,17 @@ a {
     .cta-button,
     a {
         -webkit-tap-highlight-color: rgba(217, 21, 24, 0.3);
+        touch-action: manipulation;
+    }
+    
+    /* Reduzir complexidade de animações no mobile */
+    body.is-scrolling * {
+        animation-play-state: paused !important;
+    }
+    
+    body.is-scrolling .videos-marquee-track,
+    body.is-scrolling .video-marquee-track {
+        animation-play-state: running !important;
     }
 }
 
@@ -2224,6 +2342,18 @@ a {
    ACESSIBILIDADE E PERFORMANCE
    ============================================ */
 
+/* Otimizar durante scroll */
+body.is-scrolling .videos-marquee-track,
+body.is-scrolling .video-marquee-track {
+    /* Reduzir will-change durante scroll para melhor performance */
+    will-change: auto;
+}
+
+body.is-scrolling section:not(.hero) {
+    /* Reduzir re-paint durante scroll */
+    pointer-events: none;
+}
+
 /* Reduzir motion para usuários que preferem */
 @media (prefers-reduced-motion: reduce) {
     *,
@@ -2233,6 +2363,11 @@ a {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+    
+    .videos-marquee-track,
+    .video-marquee-track {
+        animation: none !important;
     }
 }
 

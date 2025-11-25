@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initSuiteTabs();
     lazyLoadVideos();
+    optimizeMarquees(); // Nova função para marquees
 });
 
 // ============================================
@@ -23,14 +24,22 @@ function optimizePerformance() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         document.documentElement.style.setProperty('--transition-smooth', 'none');
         document.documentElement.style.setProperty('--transition-fast', 'none');
+        
+        // Pausar todas as animações de marquee
+        document.querySelectorAll('.videos-marquee-track, .video-marquee-track').forEach(track => {
+            track.style.animationPlayState = 'paused';
+        });
     }
     
     // Prevenir scroll horizontal
     document.body.style.overflowX = 'hidden';
     
-    // Otimizar touch events
+    // Otimizar touch events com passive listeners
     document.addEventListener('touchstart', function() {}, { passive: true });
     document.addEventListener('touchmove', function() {}, { passive: true });
+    
+    // Prevenir overscroll bounce
+    document.body.style.overscrollBehavior = 'none';
 }
 
 // ============================================
@@ -465,6 +474,100 @@ window.addEventListener('click', function(event) {
         closeWhatsAppModal();
     }
 });
+
+// ============================================
+// OTIMIZAÇÃO AVANÇADA DE MARQUEES
+// ============================================
+
+function optimizeMarquees() {
+    const marqueeSelectors = [
+        '.videos-marquee-track',
+        '.video-marquee-track'
+    ];
+    
+    marqueeSelectors.forEach(selector => {
+        const tracks = document.querySelectorAll(selector);
+        
+        tracks.forEach(track => {
+            // Intersection Observer para pausar quando fora da viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Dentro da viewport - continuar animação
+                        track.style.animationPlayState = 'running';
+                        
+                        // Carregar vídeos lazy
+                        const videos = track.querySelectorAll('video');
+                        videos.forEach(video => {
+                            if (!video.src && video.dataset.src) {
+                                video.src = video.dataset.src;
+                                video.load();
+                            }
+                        });
+                    } else {
+                        // Fora da viewport - pausar animação para economizar recursos
+                        track.style.animationPlayState = 'paused';
+                        
+                        // Pausar todos os vídeos
+                        const videos = track.querySelectorAll('video');
+                        videos.forEach(video => {
+                            if (!video.paused) {
+                                video.pause();
+                            }
+                        });
+                    }
+                });
+            }, {
+                rootMargin: '100px', // Começar carregamento 100px antes
+                threshold: 0.1
+            });
+            
+            observer.observe(track);
+            
+            // Prevenir scroll jump ao passar o mouse
+            let isHovering = false;
+            
+            track.addEventListener('mouseenter', () => {
+                isHovering = true;
+            }, { passive: true });
+            
+            track.addEventListener('mouseleave', () => {
+                isHovering = false;
+            }, { passive: true });
+            
+            // Pausar marquee quando tab não está visível
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    track.style.animationPlayState = 'paused';
+                } else {
+                    if (!isHovering) {
+                        track.style.animationPlayState = 'running';
+                    }
+                }
+            });
+        });
+    });
+    
+    // Debounce para scroll events
+    let scrollTimeout;
+    let isScrolling = false;
+    
+    window.addEventListener('scroll', () => {
+        isScrolling = true;
+        
+        // Limpar timeout anterior
+        clearTimeout(scrollTimeout);
+        
+        // Adicionar classe durante scroll
+        document.body.classList.add('is-scrolling');
+        
+        // Após 150ms sem scroll, remover classe
+        scrollTimeout = setTimeout(() => {
+            isScrolling = false;
+            document.body.classList.remove('is-scrolling');
+        }, 150);
+    }, { passive: true });
+}
 
 // Console log para debug
 console.log('🎉 Motel Xenon - Landing Page carregada com sucesso!');
