@@ -3,12 +3,64 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Performance optimizations
+    optimizePerformance();
+    
     initHeader();
     initHeroSlider();
     initScrollAnimations();
     initSmoothScroll();
     initSuiteTabs();
+    lazyLoadVideos();
 });
+
+// ============================================
+// OTIMIZAÇÕES DE PERFORMANCE
+// ============================================
+
+function optimizePerformance() {
+    // Desabilitar animações se usuário prefere movimento reduzido
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.style.setProperty('--transition-smooth', 'none');
+        document.documentElement.style.setProperty('--transition-fast', 'none');
+    }
+    
+    // Prevenir scroll horizontal
+    document.body.style.overflowX = 'hidden';
+    
+    // Otimizar touch events
+    document.addEventListener('touchstart', function() {}, { passive: true });
+    document.addEventListener('touchmove', function() {}, { passive: true });
+}
+
+// ============================================
+// LAZY LOADING DE VÍDEOS
+// ============================================
+
+function lazyLoadVideos() {
+    const videos = document.querySelectorAll('video[data-src]');
+    
+    if ('IntersectionObserver' in window) {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    const source = video.querySelector('source');
+                    
+                    if (source && source.dataset.src) {
+                        source.src = source.dataset.src;
+                        video.load();
+                        videoObserver.unobserve(video);
+                    }
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+        
+        videos.forEach(video => videoObserver.observe(video));
+    }
+}
 
 // ============================================
 // HEADER SCROLL
@@ -42,11 +94,18 @@ function initHeader() {
 
 function initHeroSlider() {
     const slides = document.querySelectorAll('.hero-slide');
+    if (!slides.length) return;
+    
     let currentSlide = 0;
     
     function showSlide(index) {
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[index].classList.add('active');
+        slides.forEach((slide, i) => {
+            if (i === index) {
+                slide.classList.add('active');
+            } else {
+                slide.classList.remove('active');
+            }
+        });
     }
     
     function nextSlide() {
@@ -54,8 +113,15 @@ function initHeroSlider() {
         showSlide(currentSlide);
     }
     
-    // Troca de slide a cada 5 segundos
-    setInterval(nextSlide, 5000);
+    // Troca de slide a cada 5 segundos com performance otimizada
+    const sliderInterval = setInterval(nextSlide, 5000);
+    
+    // Pausar slider quando tab não está ativa
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            clearInterval(sliderInterval);
+        }
+    });
 }
 
 // ============================================

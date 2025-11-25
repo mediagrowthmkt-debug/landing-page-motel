@@ -2,9 +2,10 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="Motel Xenon - Experiências únicas em Criciúma. Suítes luxuosas, hidromassagem, privacidade total. Aberto 24h na BR-101.">
     <meta name="keywords" content="motel criciúma, motel br-101, motel xenon, suítes com hidromassagem, motel 24 horas">
+    <meta name="theme-color" content="#D91518">
     <title>Motel Xenon - Momentos Inesquecíveis em Criciúma | Suítes de Luxo 24h</title>
     
     <!-- DNS Prefetch e Preconnect para otimização -->
@@ -23,9 +24,11 @@
     <!-- Critical CSS Inline -->
     <style>
         /* Critical CSS para renderização inicial */
-        body{margin:0;font-family:'Montserrat',sans-serif;background:#0a0a0a;color:#b7b7b7}
-        .header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(0,0,0,.9)}
-        .hero{height:100vh;background:#000;position:relative}
+        *{-webkit-tap-highlight-color:transparent}
+        html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+        body{margin:0;font-family:'Montserrat',sans-serif;background:#0a0a0a;color:#b7b7b7;overflow-x:hidden;position:relative}
+        .header{position:fixed;top:0;width:100%;z-index:1000;background:rgba(0,0,0,.9);will-change:transform}
+        .hero{height:100vh;background:#000;position:relative;overflow:hidden}
         .hero-content{position:relative;z-index:2;text-align:center;padding-top:30vh}
         .neon-text{color:#ff5577;text-shadow:0 0 3px rgba(255,85,119,.8)}
     </style>
