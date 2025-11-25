@@ -224,6 +224,9 @@ section {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    /* Prevenir interferência com scroll */
+    contain: layout style paint;
+    isolation: isolate;
 }
 
 .hero-slider {
@@ -236,6 +239,9 @@ section {
     will-change: opacity;
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+    /* CRÍTICO: Não permitir transform que afete scroll */
+    transform: translateZ(0) translateY(0);
+    pointer-events: none; /* Hero não deve capturar eventos de scroll */
 }
 
 .hero-slide {
@@ -268,6 +274,7 @@ section {
         rgba(217, 21, 24, 0.4) 0%, 
         rgba(10, 10, 10, 0.8) 50%,
         rgba(0, 0, 0, 0.9) 100%);
+    pointer-events: none;
 }
 
 .hero-content {
@@ -275,6 +282,7 @@ section {
     z-index: 2;
     text-align: center;
     padding: 20px;
+    pointer-events: auto; /* Permitir interação com botões */
 }
 
 .hero-logo {

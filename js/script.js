@@ -40,6 +40,42 @@ function optimizePerformance() {
     
     // Prevenir overscroll bounce
     document.body.style.overscrollBehavior = 'none';
+    
+    // PROTEÇÃO CRÍTICA: Prevenir scroll jump automático
+    let scrollPosition = 0;
+    let isUserScrolling = false;
+    let scrollTimeout;
+    
+    window.addEventListener('scroll', () => {
+        isUserScrolling = true;
+        const currentScroll = window.pageYOffset;
+        
+        // Detectar scroll jump suspeito
+        const scrollDifference = Math.abs(currentScroll - scrollPosition);
+        
+        // Se houve um jump grande (>300px) e inesperado para cima
+        if (scrollDifference > 300 && currentScroll < scrollPosition && !isUserScrolling) {
+            console.warn('Scroll jump detectado e prevenido');
+            window.scrollTo(0, scrollPosition);
+            return;
+        }
+        
+        scrollPosition = currentScroll;
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            isUserScrolling = false;
+        }, 100);
+    }, { passive: true });
+    
+    // Marcar que usuário está fazendo scroll
+    window.addEventListener('wheel', () => {
+        isUserScrolling = true;
+    }, { passive: true });
+    
+    window.addEventListener('touchstart', () => {
+        isUserScrolling = true;
+    }, { passive: true });
 }
 
 // ============================================
@@ -191,50 +227,28 @@ function initSmoothScroll() {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight;
                 
-                // Usar scrollIntoView para melhor compatibilidade mobile
-                if ('scrollBehavior' in document.documentElement.style) {
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Fallback para navegadores antigos
-                    window.scrollTo(0, targetPosition);
-                }
+                // Prevenir conflitos durante scroll
+                document.body.style.pointerEvents = 'none';
+                
+                // Usar scrollTo com behavior smooth
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+                
+                // Re-ativar pointer events após scroll
+                setTimeout(() => {
+                    document.body.style.pointerEvents = '';
+                }, 1000);
             }
         }, { passive: false });
     });
 }
 
 // ============================================
-// PARALLAX EFFECT (OTIMIZADO PARA MOBILE)
+// PARALLAX EFFECT - DESABILITADO
 // ============================================
-
-function initParallax() {
-    const heroSlider = document.querySelector('.hero-slider');
-    let ticking = false;
-    
-    // Desabilitar parallax em dispositivos móveis para melhor performance
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    
-    if (isMobile) return;
-    
-    window.addEventListener('scroll', function() {
-        if (!ticking) {
-            window.requestAnimationFrame(function() {
-                const scrolled = window.pageYOffset;
-                if (heroSlider && scrolled <= window.innerHeight) {
-                    heroSlider.style.transform = `translateY(${scrolled * 0.5}px)`;
-                }
-                ticking = false;
-            });
-            ticking = true;
-        }
-    }, { passive: true });
-}
-
-// Chamar função de parallax
-initParallax();
+// Função removida para evitar conflitos de scroll com marquees
 
 // ============================================
 // CONTADOR DE STATS (OPCIONAL)
@@ -518,7 +532,7 @@ function optimizeMarquees() {
                     }
                 });
             }, {
-                rootMargin: '100px', // Começar carregamento 100px antes
+                rootMargin: '100px',
                 threshold: 0.1
             });
             
@@ -544,15 +558,49 @@ function optimizeMarquees() {
                         track.style.animationPlayState = 'running';
                     }
                 }
-            });
+            }, { passive: true });
         });
     });
     
-    // Debounce para scroll events
+    // Debounce para scroll events - PROTEÇÃO CONTRA SCROLL JUMP
     let scrollTimeout;
     let isScrolling = false;
+    let lastScrollY = window.pageYOffset;
+    let scrollLocked = false;
+    let userInitiatedScroll = false;
+    
+    // Detectar scroll iniciado pelo usuário
+    ['wheel', 'touchstart', 'keydown'].forEach(eventType => {
+        window.addEventListener(eventType, () => {
+            userInitiatedScroll = true;
+        }, { passive: true });
+    });
     
     window.addEventListener('scroll', () => {
+        // Prevenir scroll jump para o topo
+        const currentScrollY = window.pageYOffset;
+        
+        // Se detectar jump grande e repentino para cima sem interação do usuário
+        if (currentScrollY === 0 && lastScrollY > 200 && !userInitiatedScroll) {
+            // Possível scroll jump indesejado - restaurar posição
+            console.warn('Scroll jump automático detectado e bloqueado');
+            requestAnimationFrame(() => {
+                window.scrollTo(0, lastScrollY);
+            });
+            return;
+        }
+        
+        // Se scroll foi muito rápido para cima (>500px instantâneo) e não foi usuário
+        const scrollDiff = lastScrollY - currentScrollY;
+        if (scrollDiff > 500 && !userInitiatedScroll) {
+            console.warn('Scroll jump grande detectado:', scrollDiff, 'px');
+            requestAnimationFrame(() => {
+                window.scrollTo(0, lastScrollY);
+            });
+            return;
+        }
+        
+        lastScrollY = currentScrollY;
         isScrolling = true;
         
         // Limpar timeout anterior
@@ -564,9 +612,22 @@ function optimizeMarquees() {
         // Após 150ms sem scroll, remover classe
         scrollTimeout = setTimeout(() => {
             isScrolling = false;
+            userInitiatedScroll = false; // Reset flag
             document.body.classList.remove('is-scrolling');
         }, 150);
     }, { passive: true });
+    
+    // Prevenir scroll automático indesejado
+    let scrollEndTimeout;
+    if ('onscrollend' in window) {
+        window.addEventListener('scrollend', () => {
+            clearTimeout(scrollEndTimeout);
+            scrollEndTimeout = setTimeout(() => {
+                scrollLocked = false;
+                userInitiatedScroll = false;
+            }, 500);
+        }, { passive: true });
+    }
 }
 
 // Console log para debug
