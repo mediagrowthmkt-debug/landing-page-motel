@@ -36,7 +36,7 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <img src="logo-fundo-branco.png" alt="Motel Xenon" width="200" height="60">
+                <img src="logo.png" alt="Motel Xenon" width="200" height="60">
                 <span class="neon-line"></span>
             </div>
             <nav class="nav">
@@ -50,16 +50,19 @@
     <!-- HERO SECTION - ATENÇÃO (AIDA) -->
     <section class="hero" id="hero">
         <div class="hero-slider">
-            <div class="hero-slide active" style="background-image: url('fotos e videos instagram/suite-cama-luz-ambiente.jpg')">
+            <div class="hero-slide active" style="background-image: url('fotos e videos instagram/suite-cama-luz-azul.jpg')">
+                <div class="hero-overlay"></div>
+            </div>
+            <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-cama-luz-teto.jpg')">
                 <div class="hero-overlay"></div>
             </div>
             <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-hidro-grande.jpg')">
                 <div class="hero-overlay"></div>
             </div>
-            <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-luz-azul.jpg')">
+            <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-hidro-petalas.jpg')">
                 <div class="hero-overlay"></div>
             </div>
-            <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-cama-luz-verde.jpg')">
+            <div class="hero-slide" style="background-image: url('fotos e videos instagram/suite-luz-azul2.jpg')">
                 <div class="hero-overlay"></div>
             </div>
         </div>
@@ -67,7 +70,7 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-logo">
-                    <img src="logo-fundo-branco.png" alt="Motel Xenon" width="500" height="150">
+                    <img src="logo.png" alt="Motel Xenon" width="500" height="150">
                 </div>
                 <p class="hero-subtitle animate-in delay-1">
                     Suítes de luxo com total privacidade, à beira da BR-101
@@ -86,6 +89,10 @@
                     Conheça Nossas Suítes
                     <span class="arrow">→</span>
                 </a>
+                <button class="cta-button whatsapp pulse animate-in delay-4" onclick="openWhatsAppModal()">
+                    <span class="icon">📱</span>
+                    Reservar via WhatsApp
+                </button>
             </div>
         </div>
 
@@ -123,7 +130,7 @@
                 </div>
                 <div class="intro-image">
                     <div class="image-frame neon-border">
-                        <img src="fotos e videos instagram/suite-cama-casal-luz-quente.jpg" alt="Suíte Luxuosa Motel Xenon" loading="lazy" width="600" height="400">
+                        <img src="fotos e videos instagram/casal-hidro2.jpg" alt="Suíte Luxuosa Motel Xenon" loading="lazy" width="600" height="400">
                     </div>
                 </div>
             </div>
@@ -143,10 +150,132 @@
             </div>
 
             <div class="suites-grid">
-                <!-- Suíte Premium -->
+                <!-- Suíte Super -->
+                <div class="suite-card" data-category="confort">
+                    <div class="suite-image">
+                        <img src="SUPER.jpg" alt="Suíte Super" loading="lazy" width="400" height="300">
+                        <div class="suite-badge">DESTAQUE</div>
+                        <div class="suite-overlay">
+                            <div class="suite-features">
+                                <span>Banheira 480L</span>
+                                <span>Cadeira Erótica</span>
+                                <span>Garagem Dupla</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="suite-content">
+                        <h3 class="suite-title">Super <span class="neon-text">com Cadeira Erótica + Garagem Dupla</span></h3>
+                        <p class="suite-description">
+                            Ideal para quem busca conforto e romance. Hidromassagem de 480L, cadeira erótica, garagem dupla e toda estrutura necessária.
+                        </p>
+                        
+                        <div class="suite-details">
+                            <div class="detail-tabs">
+                                <button class="tab-btn active" data-tab="amenities-super">Comodidades</button>
+                                <button class="tab-btn" data-tab="prices-super">Preços</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="amenities-super">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item"><span class="icon">🛁</span> Hidro 480L</div>
+                                    <div class="amenity-item"><span class="icon">❄️</span> Ar Split</div>
+                                    <div class="amenity-item"><span class="icon">📺</span> TV</div>
+                                    <div class="amenity-item"><span class="icon">📶</span> WiFi</div>
+                                    <div class="amenity-item"><span class="icon">🎵</span> Som Ambiente</div>
+                                    <div class="amenity-item"><span class="icon">🍷</span> Frigobar</div>
+                                    <div class="amenity-item"><span class="icon">🛏️</span> Cama Queen</div>
+                                    <div class="amenity-item"><span class="icon">💺</span> Cadeira Erótica</div>
+                                    <div class="amenity-item"><span class="icon">💨</span> Secador</div>
+                                    <div class="amenity-item"><span class="icon">🚗</span> Garagem Dupla</div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="prices-super">
+                                <div class="price-table">
+                                    <div class="price-period">
+                                        <div class="period-header">
+                                            <span class="period-title">Demais Dias e Horários</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 138</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 153</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 167</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 264</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sexta 18h - Sábado 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 140</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 155</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 169</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 274</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sábado 18h - Domingo 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 143</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 158</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 172</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 284</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Suíte Master Duplex -->
                 <div class="suite-card" data-category="premium">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-hidro-vermelha.jpg" alt="Suíte Premium com Hidromassagem" loading="lazy" width="400" height="300">
+                        <img src="MASTER DUPLEX.jpg" alt="Suíte Master Duplex com Hidromassagem" loading="lazy" width="400" height="300">
                         <div class="suite-badge">MAIS PROCURADA</div>
                         <div class="suite-overlay">
                             <div class="suite-features">
@@ -157,22 +286,118 @@
                         </div>
                     </div>
                     <div class="suite-content">
-                        <h3 class="suite-title">Suíte Premium Duplex</h3>
+                        <h3 class="suite-title">Master Duplex</h3>
                         <p class="suite-description">
                             Nosso espaço mais exclusivo: dois ambientes, hidromassagem de 480L, cadeira erótica e garagem dupla. Pura sofisticação.
                         </p>
-                        <div class="suite-amenities">
-                            <span class="amenity">🛁 Hidro 480L</span>
-                            <span class="amenity">❄️ Ar-condicionado</span>
-                            <span class="amenity">🚗 Garagem Dupla</span>
+                        
+                        <div class="suite-details">
+                            <div class="detail-tabs">
+                                <button class="tab-btn active" data-tab="amenities-master-duplex">Comodidades</button>
+                                <button class="tab-btn" data-tab="prices-master-duplex">Preços</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="amenities-master-duplex">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item"><span class="icon">🛁</span> 2 Hidros 480L</div>
+                                    <div class="amenity-item"><span class="icon">❄️</span> Ar Split</div>
+                                    <div class="amenity-item"><span class="icon">📶</span> WiFi</div>
+                                    <div class="amenity-item"><span class="icon">📺</span> TV</div>
+                                    <div class="amenity-item"><span class="icon">🎬</span> Cine Privê</div>
+                                    <div class="amenity-item"><span class="icon">🎵</span> Som Ambiente</div>
+                                    <div class="amenity-item"><span class="icon">🍷</span> Frigobar</div>
+                                    <div class="amenity-item"><span class="icon">🛏️</span> Cama Queen</div>
+                                    <div class="amenity-item"><span class="icon">💨</span> Secador</div>
+                                    <div class="amenity-item"><span class="icon">🚗</span> Garagem Dupla</div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="prices-master-duplex">
+                                <div class="price-table">
+                                    <div class="price-period">
+                                        <div class="period-header">
+                                            <span class="period-title">Demais Dias e Horários</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 168</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 204</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 241</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 364</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sexta 18h - Sábado 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 170</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 206</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 243</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 374</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sábado 18h - Domingo 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 173</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 209</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 246</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 384</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Suíte Luxo -->
+                <!-- Suíte Super Luxo -->
                 <div class="suite-card" data-category="luxo">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-hidro-grande.jpg" alt="Suíte Luxo com Hidromassagem" loading="lazy" width="400" height="300">
+                        <img src="SUPER LUXO.jpg" alt="Suíte Super Luxo com Hidromassagem" loading="lazy" width="400" height="300">
                         <div class="suite-overlay">
                             <div class="suite-features">
                                 <span>Banheira 480L</span>
@@ -182,7 +407,7 @@
                         </div>
                     </div>
                     <div class="suite-content">
-                        <h3 class="suite-title">Suíte Luxo</h3>
+                        <h3 class="suite-title">Super Luxo</h3>
                         <p class="suite-description">
                             Ampla e elegante, com hidromassagem de 480L, iluminação personalizada e decoração contemporânea. Perfeita para casais exigentes.
                         </p>
@@ -191,40 +416,238 @@
                             <span class="amenity">💡 LED Colorido</span>
                             <span class="amenity">🚗 Garagem Privativa</span>
                         </div>
+                        
+                        <!-- Info Detalhada -->
+                        <div class="suite-details">
+                            <div class="detail-tabs">
+                                <button class="tab-btn active" data-tab="amenities-super-luxo">Comodidades</button>
+                                <button class="tab-btn" data-tab="prices-super-luxo">Preços</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="amenities-super-luxo">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item"><span class="icon">🛁</span> Hidro 480L</div>
+                                    <div class="amenity-item"><span class="icon">❄️</span> Ar Split</div>
+                                    <div class="amenity-item"><span class="icon">📺</span> TV</div>
+                                    <div class="amenity-item"><span class="icon">📶</span> WiFi</div>
+                                    <div class="amenity-item"><span class="icon">🎵</span> Som Ambiente</div>
+                                    <div class="amenity-item"><span class="icon">🍷</span> Frigobar</div>
+                                    <div class="amenity-item"><span class="icon">🛏️</span> Cama Queen</div>
+                                    <div class="amenity-item"><span class="icon">💺</span> Cadeira Erótica</div>
+                                    <div class="amenity-item"><span class="icon">💨</span> Secador</div>
+                                    <div class="amenity-item"><span class="icon">🚗</span> Garagem Dupla</div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="prices-super-luxo">
+                                <div class="price-table">
+                                    <div class="price-period">
+                                        <div class="period-header">
+                                            <span class="period-title">Demais Dias e Horários</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 138</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 153</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 167</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 264</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sexta 18h - Sábado 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 140</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 155</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 169</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 274</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sábado 18h - Domingo 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 143</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 158</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 172</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 284</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Suíte Confort -->
+                <!-- Suíte Super -->
                 <div class="suite-card" data-category="confort">
                     <div class="suite-image">
-                        <img src="fotos e videos instagram/suite-cama-madeira.jpg" alt="Suíte Confort" loading="lazy" width="400" height="300">
+                        <img src="SUPER.jpg" alt="Suíte Super" loading="lazy" width="400" height="300">
                         <div class="suite-overlay">
                             <div class="suite-features">
-                                <span>Banheira 340L</span>
-                                <span>Ambiente Aconchegante</span>
-                                <span>TV Premium</span>
+                                <span>Banheira 480L</span>
+                                <span>Cadeira Erótica</span>
+                                <span>Garagem Dupla</span>
                             </div>
                         </div>
                     </div>
                     <div class="suite-content">
-                        <h3 class="suite-title">Suíte Confort</h3>
+                        <h3 class="suite-title">Super <span class="neon-text">com Cadeira Erótica + Garagem Dupla</span></h3>
                         <p class="suite-description">
-                            Ideal para quem busca conforto e romance. Hidromassagem de 340L, decoração acolhedora e toda estrutura necessária.
+                            Ideal para quem busca conforto e romance. Hidromassagem de 480L, cadeira erótica, garagem dupla e toda estrutura necessária.
                         </p>
-                        <div class="suite-amenities">
-                            <span class="amenity">🛁 Hidro 340L</span>
-                            <span class="amenity">📺 TV Smart</span>
-                            <span class="amenity">🚗 Garagem Privativa</span>
+                        
+                        <div class="suite-details">
+                            <div class="detail-tabs">
+                                <button class="tab-btn active" data-tab="amenities-super">Comodidades</button>
+                                <button class="tab-btn" data-tab="prices-super">Preços</button>
+                            </div>
+                            
+                            <div class="tab-content active" id="amenities-super">
+                                <div class="amenities-grid">
+                                    <div class="amenity-item"><span class="icon">🛁</span> Hidro 480L</div>
+                                    <div class="amenity-item"><span class="icon">❄️</span> Ar Split</div>
+                                    <div class="amenity-item"><span class="icon">📺</span> TV</div>
+                                    <div class="amenity-item"><span class="icon">�</span> WiFi</div>
+                                    <div class="amenity-item"><span class="icon">🎵</span> Som Ambiente</div>
+                                    <div class="amenity-item"><span class="icon">🍷</span> Frigobar</div>
+                                    <div class="amenity-item"><span class="icon">🛏️</span> Cama Queen</div>
+                                    <div class="amenity-item"><span class="icon">💺</span> Cadeira Erótica</div>
+                                    <div class="amenity-item"><span class="icon">💨</span> Secador</div>
+                                    <div class="amenity-item"><span class="icon">🚗</span> Garagem Dupla</div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-content" id="prices-super">
+                                <div class="price-table">
+                                    <div class="price-period">
+                                        <div class="period-header">
+                                            <span class="period-title">Demais Dias e Horários</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 138</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 153</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 167</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 264</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sexta 18h - Sábado 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 140</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 155</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 169</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 274</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                    
+                                    <div class="price-period">
+                                        <div class="period-header special">
+                                            <span class="period-title">Sábado 18h - Domingo 06h</span>
+                                        </div>
+                                        <div class="price-list">
+                                            <div class="price-item">
+                                                <span class="time">1 Hora</span>
+                                                <span class="amount">R$ 143</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">2 Horas</span>
+                                                <span class="amount">R$ 158</span>
+                                            </div>
+                                            <div class="price-item">
+                                                <span class="time">3 Horas</span>
+                                                <span class="amount">R$ 172</span>
+                                            </div>
+                                            <div class="price-item highlight">
+                                                <span class="time">Pernoite ☕</span>
+                                                <span class="amount">R$ 284</span>
+                                            </div>
+                                        </div>
+                                        <p class="price-note">15h de permanência com café da manhã incluso</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="cta-center">
-                <a href="#contato" class="cta-button">
-                    Reserve Sua Suíte Agora
-                    <span class="arrow">→</span>
-                </a>
+                <button class="cta-button whatsapp pulse" onclick="openWhatsAppModal()">
+                    <span class="icon">📱</span>
+                    Reservar via WhatsApp
+                </button>
             </div>
         </div>
     </section>
@@ -526,6 +949,13 @@
                     <p>Decoração personalizada para datas especiais. Café da manhã incluso no pernoite.</p>
                 </div>
             </div>
+            
+            <div class="cta-center">
+                <button class="cta-button whatsapp pulse" onclick="openWhatsAppModal()">
+                    <span class="icon">📱</span>
+                    Reservar via WhatsApp
+                </button>
+            </div>
         </div>
     </section>
 
@@ -603,25 +1033,12 @@
                 <p class="cta-final-subtitle">
                     Estamos abertos 24 horas para proporcionar a melhor experiência
                 </p>
-                
-                <div class="cta-options">
-                    <div class="cta-option">
-                        <h3>Fácil Acesso</h3>
-                        <p class="price">A partir de <span class="neon-text">R$ 89</span></p>
-                        <p class="price-info">3 horas de puro conforto</p>
-                    </div>
-                    <div class="cta-option highlight">
-                        <h3>Pernoite Completo</h3>
-                        <p class="price">A partir de <span class="neon-text">R$ 189</span></p>
-                        <p class="price-info">+ Café da manhã incluso</p>
-                    </div>
-                </div>
 
                 <div class="contact-buttons">
-                    <a href="https://wa.me/5548999999999?text=Olá! Gostaria de fazer uma reserva no Motel Xenon" class="cta-button whatsapp pulse" target="_blank">
+                    <button class="cta-button whatsapp pulse" onclick="openWhatsAppModal()">
                         <span class="icon">📱</span>
                         Reservar via WhatsApp
-                    </a>
+                    </button>
                     <a href="tel:+554830455000" class="cta-button phone">
                         <span class="icon">📞</span>
                         (48) 3045-5000
@@ -644,17 +1061,15 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-                    <img src="logo-fundo-branco.png" alt="Motel Xenon" loading="lazy" width="200" height="60">
+                    <img src="logo.png" alt="Motel Xenon" loading="lazy" width="200" height="60">
                     <p>Momentos Inesquecíveis</p>
                 </div>
-                <div class="footer-links">
-                    <a href="#suites">Suítes</a>
-                    <a href="#diferenciais">Diferenciais</a>
-                    <a href="#contato">Contato</a>
-                </div>
-                <div class="footer-social">
-                    <a href="https://facebook.com/xenonmotel" target="_blank" aria-label="Facebook">f</a>
-                    <a href="https://instagram.com/xenonmotel" target="_blank" aria-label="Instagram">📷</a>
+                <div class="footer-info">
+                    <p class="address">
+                        📍 Rod. Governador Mário Covas, km 393<br>
+                        Quarta Linha, Criciúma - SC
+                    </p>
+                    <p class="hours">🕐 Aberto 24 horas</p>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -662,6 +1077,28 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal WhatsApp -->
+    <div id="whatsappModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeWhatsAppModal()">&times;</span>
+            <h2>Reservar via WhatsApp</h2>
+            <p>Preencha seus dados para ser direcionado ao WhatsApp</p>
+            <form id="whatsappForm" onsubmit="submitWhatsApp(event)">
+                <input type="text" id="clientName" placeholder="Seu nome" required>
+                <input type="tel" id="clientPhone" placeholder="Seu telefone" required>
+                <button type="submit" class="cta-button whatsapp">
+                    <span class="icon">📱</span>
+                    Continuar no WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Botão Flutuante WhatsApp -->
+    <button class="floating-whatsapp" onclick="openWhatsAppModal()" aria-label="Reservar via WhatsApp">
+        📱
+    </button>
 
     <script src="js/script.js" defer></script>
 </body>

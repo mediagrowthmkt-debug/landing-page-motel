@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initHeroSlider();
     initScrollAnimations();
     initSmoothScroll();
+    initSuiteTabs();
 });
 
 // ============================================
@@ -309,6 +310,34 @@ if (!('IntersectionObserver' in window)) {
 }
 
 // ============================================
+// ABAS DAS SUÍTES
+// ============================================
+
+function initSuiteTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            const parentCard = this.closest('.suite-card');
+            
+            // Remover active de todos os botões e conteúdos do card
+            parentCard.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            parentCard.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Adicionar active no botão clicado
+            this.classList.add('active');
+            
+            // Mostrar conteúdo correspondente
+            const targetContent = parentCard.querySelector(`#${targetTab}`);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+}
+
+// ============================================
 // UTILITÁRIOS
 // ============================================
 
@@ -321,6 +350,55 @@ document.querySelectorAll('a[href="#"]').forEach(link => {
 document.addEventListener('touchmove', function(e) {
     // Permitir scroll normal
 }, { passive: true });
+
+// ============================================
+// WHATSAPP MODAL
+// ============================================
+
+function openWhatsAppModal() {
+    const modal = document.getElementById('whatsappModal');
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeWhatsAppModal() {
+    const modal = document.getElementById('whatsappModal');
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function submitWhatsApp(event) {
+    event.preventDefault();
+    
+    const name = document.getElementById('clientName').value;
+    const phone = document.getElementById('clientPhone').value;
+    
+    // Número do WhatsApp do Motel Xenon (ajuste conforme necessário)
+    const whatsappNumber = '5548999999999';
+    
+    // Mensagem personalizada
+    const message = `Olá! Meu nome é ${name} e gostaria de fazer uma reserva no Motel Xenon. Meu telefone: ${phone}`;
+    
+    // Criar URL do WhatsApp
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    
+    // Abrir WhatsApp em nova aba
+    window.open(whatsappURL, '_blank');
+    
+    // Fechar modal
+    closeWhatsAppModal();
+    
+    // Limpar formulário
+    document.getElementById('whatsappForm').reset();
+}
+
+// Fechar modal ao clicar fora
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('whatsappModal');
+    if (event.target === modal) {
+        closeWhatsAppModal();
+    }
+});
 
 // Console log para debug
 console.log('🎉 Motel Xenon - Landing Page carregada com sucesso!');
