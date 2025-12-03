@@ -426,18 +426,21 @@ async function submitWhatsApp(event) {
     const webhookURL = 'https://hook.us2.make.com/fbc3dcrvjt5m1ctf8nv2hvawquvms86u';
     
     const leadData = {
-        NOME: name,
-        EMAIL: '', // Email vazio, pois não está sendo coletado no formulário
-        TELEFONE: phone,
-        PERGUNTA: `Data pretendida: ${dateFormatted}`,
-        PLATAFORMA: 'Google Ads',
-        FONTE: 'Landing Page Motel Xenon',
-        QUANDO: new Date().toISOString()
+        "1": {
+            "NOME": name,
+            "EMAIL": "",
+            "TELEFONE": phone,
+            "PERGUNTA": `Data pretendida: ${dateFormatted}`,
+            "PLATAFORMA": "Google Ads",
+            "FONTE": "Landing Page Motel Xenon",
+            "QUANDO": new Date().toISOString(),
+            "traffic_source": "google ads"
+        }
     };
     
     try {
         // Enviar dados para o webhook do Make.com
-        await fetch(webhookURL, {
+        const response = await fetch(webhookURL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -445,7 +448,11 @@ async function submitWhatsApp(event) {
             body: JSON.stringify(leadData)
         });
         
-        console.log('Dados enviados para o webhook com sucesso!');
+        if (response.ok) {
+            console.log('Dados enviados para o webhook com sucesso!');
+        } else {
+            console.log('Erro na resposta do webhook:', response.status);
+        }
     } catch (error) {
         console.log('Erro ao enviar dados para webhook:', error);
         // Continua o fluxo mesmo se houver erro no webhook
