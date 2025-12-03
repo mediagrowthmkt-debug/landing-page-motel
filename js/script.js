@@ -412,36 +412,44 @@ function closeWhatsAppModal() {
     document.body.style.overflow = '';
 }
 
-function submitWhatsApp(event) {
+async function submitWhatsApp(event) {
     event.preventDefault();
     
     const name = document.getElementById('clientName').value;
     const phone = document.getElementById('clientPhone').value;
     const date = document.getElementById('clientDate').value;
     
-    // Enviar dados para o webhook do Make.com
+    // Formatar a data para exibir na mensagem do WhatsApp
+    const dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('pt-BR');
+    
+    // Preparar dados para o webhook no formato solicitado
     const webhookURL = 'https://hook.us2.make.com/fbc3dcrvjt5m1ctf8nv2hvawquvms86u';
     
     const leadData = {
-        name: name,
-        phone: phone,
-        date: date,
-        traffic_source: 'google ads'
+        NOME: name,
+        EMAIL: '', // Email vazio, pois não está sendo coletado no formulário
+        TELEFONE: phone,
+        PERGUNTA: `Data pretendida: ${dateFormatted}`,
+        PLATAFORMA: 'WhatsApp',
+        FONTE: 'Landing Page Motel Xenon',
+        QUANDO: new Date().toISOString()
     };
     
-    // Enviar para o webhook (não bloquear o fluxo se houver erro)
-    fetch(webhookURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(leadData)
-    }).catch(error => {
+    try {
+        // Enviar dados para o webhook do Make.com
+        await fetch(webhookURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(leadData)
+        });
+        
+        console.log('Dados enviados para o webhook com sucesso!');
+    } catch (error) {
         console.log('Erro ao enviar dados para webhook:', error);
-    });
-    
-    // Formatar a data para exibir na mensagem do WhatsApp
-    const dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('pt-BR');
+        // Continua o fluxo mesmo se houver erro no webhook
+    }
     
     // Número do WhatsApp do Motel Xenon (ajuste conforme necessário)
     const whatsappNumber = '5548999999999';
