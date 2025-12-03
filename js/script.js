@@ -430,7 +430,7 @@ async function submitWhatsApp(event) {
         EMAIL: '', // Email vazio, pois não está sendo coletado no formulário
         TELEFONE: phone,
         PERGUNTA: `Data pretendida: ${dateFormatted}`,
-        PLATAFORMA: 'WhatsApp',
+        PLATAFORMA: 'Google Ads',
         FONTE: 'Landing Page Motel Xenon',
         QUANDO: new Date().toISOString()
     };
