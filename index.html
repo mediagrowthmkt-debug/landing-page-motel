@@ -16,6 +16,22 @@
       gtag('js', new Date());
 
       gtag('config', 'AW-17435400574');
+      
+      // Event snippet for Enviar formulário de lead conversion page
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof(url) != 'undefined') {
+            window.location = url;
+          }
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17435400574/kArdCMPH8MobEP6y7PlA',
+            'value': 1.0,
+            'currency': 'BRL',
+            'event_callback': callback
+        });
+        return false;
+      }
     </script>
     
     <!-- DNS Prefetch e Preconnect para otimização -->

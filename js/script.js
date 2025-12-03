@@ -427,8 +427,13 @@ function submitWhatsApp(event) {
     // Criar URL do WhatsApp
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     
-    // Abrir WhatsApp em nova aba
-    window.open(whatsappURL, '_blank');
+    // Disparar evento de conversão do Google Ads
+    if (typeof gtag_report_conversion === 'function') {
+        gtag_report_conversion(whatsappURL);
+    } else {
+        // Fallback se a função não estiver disponível
+        window.open(whatsappURL, '_blank');
+    }
     
     // Fechar modal
     closeWhatsAppModal();
