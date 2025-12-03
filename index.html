@@ -1116,7 +1116,7 @@
             <p>Preencha seus dados para ser direcionado ao WhatsApp</p>
             <form id="whatsappForm" onsubmit="submitWhatsApp(event)">
                 <input type="text" id="clientName" placeholder="Seu nome completo" required>
-                <input type="tel" id="clientPhone" placeholder="Seu WhatsApp com DDD" required>
+                <input type="tel" id="clientPhone" placeholder="Seu WhatsApp com DDD" maxlength="15" required>
                 <label for="clientDate" class="date-label">Nos envie a data que pretende agendar sua visita:</label>
                 <input type="date" id="clientDate" required class="date-input">
                 <button type="submit" class="cta-button whatsapp">

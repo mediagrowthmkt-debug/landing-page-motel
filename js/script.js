@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initSuiteTabs();
     lazyLoadVideos();
     optimizeMarquees(); // Nova função para marquees
+    initPhoneMask(); // Máscara de telefone
 });
 
 // ============================================
@@ -397,6 +398,43 @@ document.addEventListener('touchmove', function(e) {
 }, { passive: true });
 
 // ============================================
+// MÁSCARA DE TELEFONE BRASILEIRO
+// ============================================
+
+function initPhoneMask() {
+    const phoneInput = document.getElementById('clientPhone');
+    
+    if (phoneInput) {
+        phoneInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é número
+            
+            if (value.length > 11) {
+                value = value.slice(0, 11); // Limita a 11 dígitos
+            }
+            
+            // Aplica a máscara
+            if (value.length <= 10) {
+                // Formato: (00) 0000-0000
+                value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+            } else {
+                // Formato: (00) 00000-0000
+                value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+            }
+            
+            e.target.value = value;
+        });
+        
+        // Permite apenas números, parênteses, espaço e hífen
+        phoneInput.addEventListener('keypress', function(e) {
+            const char = String.fromCharCode(e.which);
+            if (!/[0-9]/.test(char)) {
+                e.preventDefault();
+            }
+        });
+    }
+}
+
+// ============================================
 // WHATSAPP MODAL
 // ============================================
 
@@ -419,24 +457,28 @@ async function submitWhatsApp(event) {
     const phone = document.getElementById('clientPhone').value;
     const date = document.getElementById('clientDate').value;
     
+    // Remover formatação do telefone para enviar apenas números
+    const phoneClean = phone.replace(/\D/g, ''); // Remove tudo que não é número
+    
     // Formatar a data para exibir na mensagem do WhatsApp
     const dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('pt-BR');
     
     // Preparar dados para o webhook no formato solicitado
     const webhookURL = 'https://hook.us2.make.com/fbc3dcrvjt5m1ctf8nv2hvawquvms86u';
     
+    // Enviar dados de forma simples - sem estrutura aninhada
     const leadData = {
-        "1": {
-            "NOME": name,
-            "EMAIL": "",
-            "TELEFONE": phone,
-            "PERGUNTA": `Data pretendida: ${dateFormatted}`,
-            "PLATAFORMA": "Google Ads",
-            "FONTE": "Landing Page Motel Xenon",
-            "QUANDO": new Date().toISOString(),
-            "traffic_source": "google ads"
-        }
+        "NOME": name,
+        "EMAIL": "",
+        "TELEFONE": phoneClean,
+        "PERGUNTA": `Data pretendida: ${dateFormatted}`,
+        "PLATAFORMA": "Google Ads",
+        "FONTE": "Landing Page Motel Xenon",
+        "QUANDO": new Date().toISOString(),
+        "traffic_source": "Google Ads"
     };
+    
+    console.log('Enviando dados para webhook:', leadData);
     
     try {
         // Enviar dados para o webhook do Make.com
@@ -448,18 +490,20 @@ async function submitWhatsApp(event) {
             body: JSON.stringify(leadData)
         });
         
+        const responseText = await response.text();
+        
         if (response.ok) {
-            console.log('Dados enviados para o webhook com sucesso!');
+            console.log('✅ Dados enviados com sucesso!', responseText);
         } else {
-            console.log('Erro na resposta do webhook:', response.status);
+            console.log('❌ Erro na resposta do webhook:', response.status, responseText);
         }
     } catch (error) {
-        console.log('Erro ao enviar dados para webhook:', error);
+        console.log('❌ Erro ao enviar dados para webhook:', error);
         // Continua o fluxo mesmo se houver erro no webhook
     }
     
-    // Número do WhatsApp do Motel Xenon (ajuste conforme necessário)
-    const whatsappNumber = '5548999999999';
+    // Número do WhatsApp do Motel Xenon
+    const whatsappNumber = '554884688350';
     
     // Mensagem personalizada
     const message = `Olá! Meu nome é ${name} e gostaria de fazer uma reserva no Motel Xenon.\n\nMeu telefone: ${phone}\nData pretendida: ${dateFormatted}`;
