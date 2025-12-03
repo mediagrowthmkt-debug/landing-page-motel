@@ -417,12 +417,37 @@ function submitWhatsApp(event) {
     
     const name = document.getElementById('clientName').value;
     const phone = document.getElementById('clientPhone').value;
+    const date = document.getElementById('clientDate').value;
+    
+    // Enviar dados para o webhook do Make.com
+    const webhookURL = 'https://hook.us2.make.com/fbc3dcrvjt5m1ctf8nv2hvawquvms86u';
+    
+    const leadData = {
+        name: name,
+        phone: phone,
+        date: date,
+        traffic_source: 'google ads'
+    };
+    
+    // Enviar para o webhook (não bloquear o fluxo se houver erro)
+    fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(leadData)
+    }).catch(error => {
+        console.log('Erro ao enviar dados para webhook:', error);
+    });
+    
+    // Formatar a data para exibir na mensagem do WhatsApp
+    const dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('pt-BR');
     
     // Número do WhatsApp do Motel Xenon (ajuste conforme necessário)
     const whatsappNumber = '5548999999999';
     
     // Mensagem personalizada
-    const message = `Olá! Meu nome é ${name} e gostaria de fazer uma reserva no Motel Xenon. Meu telefone: ${phone}`;
+    const message = `Olá! Meu nome é ${name} e gostaria de fazer uma reserva no Motel Xenon.\n\nMeu telefone: ${phone}\nData pretendida: ${dateFormatted}`;
     
     // Criar URL do WhatsApp
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
