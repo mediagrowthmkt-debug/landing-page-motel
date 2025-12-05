@@ -473,6 +473,157 @@ section {
 }
 
 /* ============================================
+   HERO MARQUEE GALERIA
+   ============================================ */
+
+.hero-marquee-container {
+    position: absolute;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    z-index: 2;
+    overflow: hidden;
+    padding: 10px 0;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), transparent);
+}
+
+.hero-marquee {
+    display: flex;
+    gap: 0;
+    width: fit-content;
+    will-change: transform;
+}
+
+.hero-marquee-track {
+    display: flex;
+    gap: 15px;
+    animation: marqueeScroll 60s linear infinite;
+    will-change: transform;
+}
+
+.hero-marquee-track img {
+    width: 200px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    flex-shrink: 0;
+}
+
+.hero-marquee-track img:hover {
+    transform: scale(1.1) translateY(-5px);
+    border-color: var(--color-primary);
+    box-shadow: 0 8px 25px rgba(217, 21, 24, 0.6);
+    z-index: 10;
+}
+
+@keyframes marqueeScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Pausar animação ao hover */
+.hero-marquee-container:hover .hero-marquee-track {
+    animation-play-state: paused;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .hero-marquee-container {
+        bottom: 40px;
+        padding: 8px 0;
+    }
+    
+    .hero-marquee-track {
+        gap: 10px;
+        animation-duration: 45s;
+    }
+    
+    .hero-marquee-track img {
+        width: 150px;
+        height: 90px;
+        border-radius: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-marquee-track img {
+        width: 120px;
+        height: 75px;
+    }
+    
+    .hero-marquee-track {
+        animation-duration: 35s;
+    }
+}
+
+/* ============================================
+   HERO - AJUSTES RESPONSIVOS ESPECÍFICOS
+   ============================================ */
+
+@media (max-width: 1250px) {
+    /* Hero content */
+    #hero .hero-content {
+        height: 1075px;
+    }
+    
+    /* Hero */
+    #hero {
+        height: 1000px;
+        min-height: 594px;
+    }
+    
+    /* Hero marquee container */
+    #hero .hero-marquee-container {
+        height: 149px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Hero */
+    #hero {
+        min-height: 965px;
+        height: 829px;
+        max-height: 985px;
+    }
+    
+    /* Hero content */
+    #hero .hero-content {
+        height: 1182px;
+        transform: translateX(0px) translateY(0px);
+        padding-bottom: 80px;
+    }
+    
+    /* Hero marquee container */
+    #hero .hero-marquee-container {
+        height: 226px;
+    }
+}
+
+@media (min-width: 1251px) {
+    /* Hero */
+    #hero {
+        min-height: 975px;
+    }
+    
+    /* Hero content */
+    #hero .hero-content {
+        height: 1087px;
+    }
+    
+    /* Hero marquee container */
+    #hero .hero-marquee-container {
+        height: 191px;
+    }
+}
+
+/* ============================================
    SCROLL INDICATOR
    ============================================ */
 
