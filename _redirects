@@ -1,4 +1,3 @@
 # Redirects para Netlify
-/motel-criciuma    /motel-criciuma/index.html    200
-/perto-proximo     /perto-proximo/index.html     200
-/                  /motel-criciuma/index.html    200
+/perto-proximo    /perto-proximo/index.html    200
+/perto-proximo/*  /perto-proximo/:splat        200

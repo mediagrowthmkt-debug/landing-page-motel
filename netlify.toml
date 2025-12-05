@@ -4,21 +4,15 @@
 [build]
   publish = "."
 
-# Redirects para as landing pages
-[[redirects]]
-  from = "/motel-criciuma"
-  to = "/motel-criciuma/index.html"
-  status = 200
-
+# Redirects para perto-proximo
 [[redirects]]
   from = "/perto-proximo"
   to = "/perto-proximo/index.html"
   status = 200
 
-# Redirect da raiz para motel-criciuma (página principal)
 [[redirects]]
-  from = "/"
-  to = "/motel-criciuma/index.html"
+  from = "/perto-proximo/*"
+  to = "/perto-proximo/:splat"
   status = 200
 
 # Headers de segurança
