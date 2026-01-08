@@ -108,11 +108,20 @@ section {
 }
 
 /* ============================================
+   BANNER PROMOÇÃO - DESABILITADO
+   ============================================ */
+
+.promo-banner {
+    display: none;
+}
+
+/* ============================================
    HEADER
    ============================================ */
 
 .header {
     position: fixed;
+    top: 0;
     top: 0;
     left: 0;
     right: 0;
@@ -212,6 +221,43 @@ section {
     transform: translateY(-2px);
 }
 
+/* Botão CTA Vinho no Header */
+.nav-cta-wine {
+    background: linear-gradient(135deg, #d91518 0%, #bd1313 100%);
+    padding: 12px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-primary);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(217, 21, 24, 0.4);
+    transition: all 0.3s ease;
+    animation: pulse-wine 2s ease-in-out infinite;
+}
+
+@keyframes pulse-wine {
+    0%, 100% {
+        box-shadow: 0 4px 15px rgba(217, 21, 24, 0.4);
+    }
+    50% {
+        box-shadow: 0 6px 25px rgba(217, 21, 24, 0.7);
+    }
+}
+
+.nav-cta-wine:hover {
+    background: linear-gradient(135deg, #ff1a1d 0%, #d91518 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(217, 21, 24, 0.8);
+}
+
+.nav-cta-wine::after {
+    display: none;
+}
+
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -279,7 +325,7 @@ section {
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 50;
     text-align: center;
     padding: 20px;
     pointer-events: auto; /* Permitir interação com botões */
@@ -319,6 +365,68 @@ section {
     font-weight: 300;
     color: var(--color-text-gray);
     margin-bottom: 40px;
+}
+
+/* Promoção Hero */
+.promo-hero {
+    background: linear-gradient(135deg, rgba(217, 21, 24, 0.9) 0%, rgba(189, 19, 19, 0.9) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    padding: 20px 30px;
+    margin: 30px auto;
+    max-width: 600px;
+    box-shadow: 0 5px 30px rgba(217, 21, 24, 0.4);
+    animation: pulse-promo 3s ease-in-out infinite;
+    position: relative;
+    z-index: 50;
+}
+
+@keyframes pulse-promo {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 5px 30px rgba(217, 21, 24, 0.4);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 8px 40px rgba(217, 21, 24, 0.6);
+    }
+}
+
+.promo-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+    100% {
+        background-position: 200px 0;
+    }
+}
+
+.promo-hero-text {
+    font-size: 1.8rem;
+    color: white;
+    font-weight: 400;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.promo-hero-text strong {
+    font-weight: 700;
+    text-transform: uppercase;
+    text-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
 .hero-features {
@@ -370,6 +478,8 @@ section {
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    z-index: 100;
+    pointer-events: auto;
 }
 
 .cta-button::before {
@@ -438,11 +548,15 @@ section {
     gap: 20px;
     align-items: center;
     margin-top: 30px;
+    position: relative;
+    z-index: 100;
 }
 
 .hero-buttons .cta-button {
     min-width: 320px;
     justify-content: center;
+    position: relative;
+    z-index: 100;
 }
 
 /* Desktop - Botões lado a lado */
@@ -478,10 +592,10 @@ section {
 
 .hero-marquee-container {
     position: absolute;
-    bottom: 60px;
+    bottom: 36px !important;
     left: 0;
     width: 100%;
-    z-index: 2;
+    z-index: 1;
     overflow: hidden;
     padding: 10px 0;
     background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.3), transparent);
@@ -536,7 +650,7 @@ section {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .hero-marquee-container {
-        bottom: 40px;
+        bottom: 24px !important;
         padding: 8px 0;
     }
     
@@ -582,6 +696,61 @@ section {
     /* Hero marquee container */
     #hero .hero-marquee-container {
         height: 149px;
+        bottom: 36px !important;
+        min-height: 0px;
+    }
+    
+    /* Hero marquee */
+    #hero .hero-marquee {
+        height: 0px;
+        min-height: 43px;
+    }
+}
+
+@media (max-width: 1250px) {
+    /* Hero buttons */
+    #hero .hero-buttons {
+        padding-top: 0px;
+        height: 68px;
+        min-height: 0px;
+        top: -41px;
+        position: relative;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* Hero marquee container */
+    #hero .hero-marquee-container {
+        height: 132px;
+    }
+    
+    /* Hero buttons */
+    #hero .hero-buttons {
+        margin-top: -33px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Hero content */
+    #hero .hero-content {
+        transform: translateX(0px) translateY(0px);
+    }
+    
+    /* Hero marquee container */
+    #hero .hero-marquee-container {
+        height: 123px;
+        padding-top: 113px;
+    }
+    
+    /* Hero buttons */
+    #hero .hero-buttons {
+        top: -16px;
+        position: relative;
+    }
+    
+    /* Hero features */
+    #hero .hero-features {
+        padding-bottom: 18px;
     }
 }
 
@@ -603,6 +772,7 @@ section {
     /* Hero marquee container */
     #hero .hero-marquee-container {
         height: 226px;
+        bottom: 24px !important;
     }
 }
 
@@ -614,12 +784,13 @@ section {
     
     /* Hero content */
     #hero .hero-content {
-        height: 1087px;
+        height: 1228px;
     }
     
     /* Hero marquee container */
     #hero .hero-marquee-container {
-        height: 191px;
+        height: 131px;
+        bottom: 36px !important;
     }
 }
 
@@ -2001,6 +2172,17 @@ section {
         touch-action: pan-y;
     }
     
+    /* Ocultar SUÍTES PREMIUM no mobile */
+    .hide-mobile {
+        display: none !important;
+    }
+    
+    /* Botão CTA Vinho Mobile */
+    .nav-cta-wine {
+        padding: 10px 18px;
+        font-size: 1.2rem;
+    }
+    
     /* Otimizações de performance mobile */
     * {
         -webkit-tap-highlight-color: transparent;
@@ -2547,6 +2729,87 @@ section {
 
 .modal-content .cta-button {
     margin-top: 10px;
+}
+
+/* ============================================
+   MODAL VINHO - DESIGN MINIMALISTA
+   ============================================ */
+
+.modal-wine {
+    max-width: 450px !important;
+    padding: 30px !important;
+    text-align: center;
+}
+
+.wine-gift-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.wine-gif {
+    width: 225px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(217, 21, 24, 0.3);
+}
+
+.wine-text-center {
+    width: 100%;
+}
+
+.wine-text-center h2 {
+    font-size: 1.8rem !important;
+    margin-bottom: 10px !important;
+    color: white !important;
+}
+
+.wine-text-center form {
+    margin-top: 20px;
+}
+
+.wine-text-center input[type="text"] {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid rgba(255, 85, 119, 0.3);
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.wine-text-center input[type="text"]:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 3px rgba(217, 21, 24, 0.1);
+}
+
+.wine-text-center input[type="text"]::placeholder {
+    color: rgba(183, 183, 183, 0.6);
+}
+
+@media (max-width: 768px) {
+    .modal-wine {
+        padding: 25px !important;
+        max-width: 90% !important;
+    }
+    
+    .wine-gif {
+        width: 180px;
+    }
+    
+    .wine-text-center h2 {
+        font-size: 2rem !important;
+    }
+    
+    .wine-text-center p {
+        font-size: 1.3rem !important;
+    }
 }
 
 /* ============================================

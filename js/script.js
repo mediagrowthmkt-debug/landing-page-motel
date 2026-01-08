@@ -454,14 +454,6 @@ async function submitWhatsApp(event) {
     event.preventDefault();
     
     const name = document.getElementById('clientName').value;
-    const phone = document.getElementById('clientPhone').value;
-    const date = document.getElementById('clientDate').value;
-    
-    // Remover formatação do telefone para enviar apenas números
-    const phoneClean = phone.replace(/\D/g, ''); // Remove tudo que não é número
-    
-    // Formatar a data para exibir na mensagem do WhatsApp
-    const dateFormatted = new Date(date + 'T00:00:00').toLocaleDateString('pt-BR');
     
     // Preparar dados para o webhook no formato solicitado
     const webhookURL = 'https://hook.us2.make.com/fbc3dcrvjt5m1ctf8nv2hvawquvms86u';
@@ -470,10 +462,10 @@ async function submitWhatsApp(event) {
     const leadData = {
         "NOME": name,
         "EMAIL": "",
-        "TELEFONE": phoneClean,
-        "PERGUNTA": `Data pretendida: ${dateFormatted}`,
+        "TELEFONE": "",
+        "PERGUNTA": "Cliente ganhou garrafa de vinho - promoção landing page",
         "PLATAFORMA": "Google Ads",
-        "FONTE": "Landing Page Motel Xenon",
+        "FONTE": "Landing Page Motel Xenon - Promo Vinho",
         "QUANDO": new Date().toISOString(),
         "traffic_source": "Google Ads"
     };
@@ -505,8 +497,8 @@ async function submitWhatsApp(event) {
     // Número do WhatsApp do Motel Xenon
     const whatsappNumber = '554884688350';
     
-    // Mensagem personalizada
-    const message = `Olá! Meu nome é ${name} e gostaria de fazer uma reserva no Motel Xenon.\n\nMeu telefone: ${phone}\nData pretendida: ${dateFormatted}`;
+    // Mensagem personalizada com promoção da garrafa de vinho
+    const message = `🍷 Olá! Meu nome é ${name} e acabei de ganhar uma garrafa de vinho!\n\nGostaria de fazer minha reserva no Motel Xenon e resgatar minha garrafa de vinho de cortesia!`;
     
     // Criar URL do WhatsApp
     const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
