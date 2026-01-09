@@ -2772,8 +2772,8 @@ section {
 .wine-text-center input[type="text"] {
     width: 100%;
     text-align: center;
-    font-size: 1.1rem;
-    padding: 15px;
+    font-size: 1.8rem;
+    padding: 18px 20px;
     background: rgba(255, 255, 255, 0.08);
     border: 2px solid rgba(255, 85, 119, 0.3);
     border-radius: 10px;
@@ -2790,7 +2790,8 @@ section {
 }
 
 .wine-text-center input[type="text"]::placeholder {
-    color: rgba(183, 183, 183, 0.6);
+    color: rgba(183, 183, 183, 0.7);
+    font-size: 1.8rem;
 }
 
 @media (max-width: 768px) {
@@ -2809,6 +2810,15 @@ section {
     
     .wine-text-center p {
         font-size: 1.3rem !important;
+    }
+    
+    .wine-text-center input[type="text"] {
+        font-size: 1.6rem;
+        padding: 16px 18px;
+    }
+    
+    .wine-text-center input[type="text"]::placeholder {
+        font-size: 1.6rem;
     }
 }
 
@@ -2864,92 +2874,6 @@ textarea:focus {
 /* ============================================
    FIM WHATSAPP COMPONENTS
    ============================================ */
-
-/* ============================================
-   MODAL VINHO - DESIGN MINIMALISTA
-   ============================================ */
-
-.modal-wine {
-    max-width: 450px !important;
-    padding: 30px !important;
-    text-align: center;
-}
-
-.wine-gift-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-.wine-gif {
-    width: 225px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(217, 21, 24, 0.3);
-}
-
-.wine-text-center {
-    width: 100%;
-}
-
-.wine-text-center h2 {
-    font-size: 1.8rem !important;
-    margin-bottom: 10px !important;
-    color: white !important;
-}
-
-.wine-text-center form {
-    margin-top: 20px;
-}
-
-.wine-text-center input[type="text"] {
-    width: 100%;
-    text-align: center;
-    font-size: 1.1rem;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 2px solid rgba(255, 85, 119, 0.3);
-    border-radius: 10px;
-    color: white;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.wine-text-center input[type="text"]:focus {
-    outline: none;
-    border-color: var(--color-primary);
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 0 0 3px rgba(217, 21, 24, 0.1);
-}
-
-.wine-text-center input[type="text"]::placeholder {
-    color: rgba(183, 183, 183, 0.6);
-}
-
-@media (max-width: 768px) {
-    .modal-wine {
-        padding: 25px !important;
-        max-width: 90% !important;
-    }
-    
-    .wine-gif {
-        width: 180px;
-    }
-    
-    .wine-text-center h2 {
-        font-size: 2rem !important;
-    }
-    
-    .wine-text-center p {
-        font-size: 1.3rem !important;
-    }
-    
-    .nav-cta-wine {
-        font-size: 1.1rem;
-        padding: 8px 14px;
-    }
-}
 
 .mb-large {
     margin-bottom: 60px;
